@@ -1,0 +1,42 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    image.opencontainers.org/created: "2019-11-20T22:41:27+03:00"
+    stack.appsody.dev/configured: appsody/java-microprofile:0.2
+    stack.appsody.dev/created: 2019-11-15T10:51:40+0000
+    stack.appsody.dev/revision: 0a6c857b8506ef76f8a6ad8626a021e8eeaf68f0
+    stack.appsody.dev/tag: appsody/java-microprofile:0.2.19
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: jenga-mvp
+    stack.appsody.dev/version: 0.2.19
+  name: jenga-mvp
+  namespace: jenga-mvp
+spec:
+  applicationImage: dev.local/jenga-mvp
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+  stack: java-microprofile
+  version: 1.0.0
+status: {}
